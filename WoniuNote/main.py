@@ -17,7 +17,7 @@ app.config['SECRET_KEY'] = os.urandom(24)  # 24位 生成随机数种子  用于
 # 使用集成方式处理SQLAlchemy
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:000000@hadoop102:3306/woniunote?charset=utf8'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:000000@hadoop102:3306/woniunote?charset=utf8'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 跟踪数据库的修改 及时发送信号给Flask
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True  # 跟踪数据库的修改 及时发送信号给Flask
 app.config['SQLALCHEMY_ECHO'] = True  # 跟踪数据库的修改 及时发送信号给Flask
 app.config['JSON_AS_ASCII'] = False
 # 初始化数据库
@@ -35,5 +35,24 @@ def page_not_found(e):
     return render_template('error-500.html')
 
 
+# 定义文章类型函数
+@app.context_processor
+def get_type():
+    type = {
+        '1': 'PHP开发',
+        '2': 'Java开发',
+        '3': 'Python开发',
+        '4': 'Web开发',
+        '5': '测试开发',
+        '6': '数据科学',
+        '7': '网络安全',
+        '8': '蜗牛杂谈',
+    }
+    return dict(article_type = type)
+
+
 if __name__ == '__main__':
+    from controller.index import *
+
+    app.register_blueprint(index)
     app.run(debug=True)
