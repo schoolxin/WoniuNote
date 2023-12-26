@@ -34,3 +34,12 @@ def classify(article_type, page):
     result = artile.find_by_type(article_type, start, 10)
     total = math.ceil(artile.get_total_count_by_type(article_type) / 10)
     return render_template('type.html', result=result, current_page=page, total=total,type = article_type)
+
+
+@index.route("/search/<int:page>-<keyword>")
+def search(page, keyword):
+    start = (page - 1) * 10
+    artile = Article()
+    result = artile.find_by_headline(keyword,start, 10)
+    total = math.ceil(artile.get_total_count_by_headline(keyword) / 10)  # 总页数
+    return render_template('search.html', result=result, current_page=page, total=total, headline=keyword)

@@ -36,23 +36,24 @@ class Article(db.Model):
 
     # 指定分页的limit和offset的参数 同时与users表关联查询
     def find_limit_with_user(self, start, count):
-        result = db.session.query(Article, Users.nickname)\
-            .join(Users, Users.userid == Article.userid)\
-            .order_by(Article.articleid.desc())\
-            .limit(count)\
-            .offset(start)\
+        result = db.session.query(Article, Users.nickname) \
+            .join(Users, Users.userid == Article.userid) \
+            .order_by(Article.articleid.desc()) \
+            .limit(count) \
+            .offset(start) \
             .all()
         return result
+
     # 统计当前文章的总数量
     def get_total_count(self):
         count = db.session.query(Article).count()
         return count
 
     # 根据文章类型获取文章
-    def find_by_type(self,article_type, start, count):
-        result = db.session.query(Article,Users.nickname)\
-            .join(Users, Users.userid == Article.userid)\
-            .filter(Article.type==article_type)\
+    def find_by_type(self, article_type, start, count):
+        result = db.session.query(Article, Users.nickname) \
+            .join(Users, Users.userid == Article.userid) \
+            .filter(Article.type == article_type) \
             .order_by(Article.articleid.desc()) \
             .limit(count) \
             .offset(start) \
@@ -60,10 +61,22 @@ class Article(db.Model):
         return result
 
     # 根据文章类型获取总条数
-    def get_total_count_by_type(self,article_type):
-        count = db.session.query(Article).filter(Article.type==article_type).count()
+    def get_total_count_by_type(self, article_type):
+        count = db.session.query(Article).filter(Article.type == article_type).count()
         return count
 
     # 根据文章标题进行模糊搜索
+    def find_by_headline(self, headline, start, count):
+        result = db.session.query(Article, Users.nickname) \
+            .join(Users, Users.userid == Article.userid) \
+            .filter(Article.headline.like('%' + headline + '%')) \
+            .order_by(Article.articleid.desc()) \
+            .limit(count) \
+            .offset(start) \
+            .all()
+        return result
 
-
+    # 统计分页数量
+    def get_total_count_by_headline(self, headline):
+        count = db.session.query(Article).filter(Article.headline.like('%' + headline + '%')).count()
+        return count

@@ -1,40 +1,53 @@
-        <div class="col-sm-3 col-12" style="padding: 0px 10px;">
-            <div class="col-12 search-bar form-group row">
-                <div class="col-8">
-                    <input type="text" class="form-control" id="keyword" placeholder="请输入关键字" />
-                </div>
-                <div class="col-4" style="text-align:right;">
-                    <button type="button" class="btn btn-primary">搜索</button>
-                </div>
-            </div>
-
-            <div class="col-12 side">
-                <div class="tip">最新文章</div>
-                <ul>
-                    <li><a href="#">1. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">2. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">3. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">4. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">5. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">6. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">7. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">8. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">9. Web系统开发框架之特性对比分析 ...</a></li>
-                </ul>
-            </div>
-
-            <div class="col-12 side">
-                <div class="tip">特别推荐</div>
-                <ul>
-                    <li><a href="#">1. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">2. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">3. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">4. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">5. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">6. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">7. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">8. Web系统开发框架之特性对比分析 ...</a></li>
-                    <li><a href="#">9. Web系统开发框架之特性对比分析 ...</a></li>
-                </ul>
-            </div>
+<div class="col-sm-3 col-12" style="padding: 0px 10px;">
+    <div class="col-12 search-bar form-group row">
+        <div class="col-8">
+            <input type="text" class="form-control" id="keyword" placeholder="请输入关键字"/>
         </div>
+        <div class="col-4" style="text-align:right;">
+            <button type="button" class="btn btn-primary" onclick="doSearch()">搜索</button>
+        </div>
+    </div>
+
+    <div class="col-12 side">
+        <div class="tip">最新文章</div>
+        <ul>
+            <li><a href="#">1. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">2. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">3. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">4. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">5. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">6. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">7. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">8. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">9. Web系统开发框架之特性对比分析 ...</a></li>
+        </ul>
+    </div>
+
+    <div class="col-12 side">
+        <div class="tip">特别推荐</div>
+        <ul>
+            <li><a href="#">1. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">2. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">3. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">4. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">5. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">6. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">7. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">8. Web系统开发框架之特性对比分析 ...</a></li>
+            <li><a href="#">9. Web系统开发框架之特性对比分析 ...</a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    function doSearch() {
+        keyword = $.trim($("#keyword").val())
+        if (keyword.length==0||keyword.length>10||keyword.indexOf('%')>=0)
+        {
+            window.alert("你搜索的关键字不合法")
+            $("#keyword").focus()
+            return false
+        }
+        location.href='/search/1-'+keyword
+    }
+
+</script>
