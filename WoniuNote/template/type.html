@@ -65,17 +65,17 @@
                     {% if current_page ==1 %}
                         <a href="#">上一页</a>
                     {% else %}
-                        <a href="/page/{{ current_page-1 }}">上一页</a>
+                        <a href="/type/{{ type }}-{{ current_page-1 }}">上一页</a>
                     {% endif %}
 
 
                     {% for i in range(total) %}&nbsp;&nbsp;
-                        <a href="/page/{{ i+1 }}">{{ i+1 }}</a>&nbsp;&nbsp;&nbsp;
+                        <a href="/type/{{ type }}-{{ i+1 }}">{{ i+1 }}</a>&nbsp;&nbsp;&nbsp;
                     {% endfor %}
                      {% if current_page == total %}
                         <a href="#">下一页</a>
                     {% else %}
-                        <a href="/page/{{ current_page+1 }}">上一页</a>
+                        <a href="/type/{{ type }}-{{ current_page+1 }}">下一页</a>
                     {% endif %}
 
 

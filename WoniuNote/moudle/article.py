@@ -3,6 +3,8 @@
 # @Time      :2023/12/25 9:24
 # @Author    :dzz
 # @Function  :
+from sqlalchemy import func
+
 from main import db
 from moudle.users import Users
 
@@ -41,3 +43,27 @@ class Article(db.Model):
             .offset(start)\
             .all()
         return result
+    # 统计当前文章的总数量
+    def get_total_count(self):
+        count = db.session.query(Article).count()
+        return count
+
+    # 根据文章类型获取文章
+    def find_by_type(self,article_type, start, count):
+        result = db.session.query(Article,Users.nickname)\
+            .join(Users, Users.userid == Article.userid)\
+            .filter(Article.type==article_type)\
+            .order_by(Article.articleid.desc()) \
+            .limit(count) \
+            .offset(start) \
+            .all()
+        return result
+
+    # 根据文章类型获取总条数
+    def get_total_count_by_type(self,article_type):
+        count = db.session.query(Article).filter(Article.type==article_type).count()
+        return count
+
+    # 根据文章标题进行模糊搜索
+
+
