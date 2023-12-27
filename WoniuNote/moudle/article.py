@@ -80,3 +80,32 @@ class Article(db.Model):
     def get_total_count_by_headline(self, headline):
         count = db.session.query(Article).filter(Article.headline.like('%' + headline + '%')).count()
         return count
+
+    # 获取最新文章
+    def find_last_9(self):
+        result = db.session.query(Article.headline, Article.articleid) \
+            .order_by(Article.articleid.desc()) \
+            .limit(9).all()
+        return result
+
+    # 获取最多阅读的
+    def find_most_9(self):
+        result = db.session.query(Article.headline, Article.articleid) \
+            .order_by(Article.readcount.desc()) \
+            .limit(9).all()
+        return result
+
+    # 特别推荐
+    def find_recommand_9(self):
+        result = db.session.query(Article.headline, Article.articleid) \
+            .filter(Article.recommended==1) \
+            .order_by(func.rand()) \
+            .limit(9).all()
+        return result
+    # 一次性返回三个推荐
+    def find_last_most_recommend(self):
+        last = self.find_last_9()
+        most = self.find_most_9()
+        recommend = self.find_recommand_9()
+        return (last,most,recommend)
+

@@ -15,7 +15,8 @@ def home():
     artile = Article()
     result = artile.find_limit_with_user(0, 10)
     total = math.ceil(artile.get_total_count() / 10)  # 总页数
-    return render_template('index.html', result=result, total=total, current_page=1)
+    last,most,recommended = artile.find_last_most_recommend()
+    return render_template('index.html', result=result, total=total, current_page=1,last=last,most=most,recommended=recommended)
 
 
 @index.route("/page/<int:page>")
