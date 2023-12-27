@@ -12,7 +12,7 @@
         <div class="tip">最新文章</div>
         <ul>
             {% for row in last%}
-                <li><a href="/article/{{ row.articleid }}">{{ loop.index }}. {{ row.headline| truncate(15) }}</a></li>
+                <li><a href="/article/{{ row.articleid }}">{{ loop.index }}. {{ row.headline| mytruncate(14) }}</a></li>
             {% endfor %}
 
         </ul>
@@ -22,7 +22,7 @@
         <div class="tip">特别推荐</div>
         <ul>
             {% for row in recommended %}
-                <li><a href="/article/{{ row.articleid }}">{{ loop.index }}. {{ row.headline| truncate(15) }}</a></li>
+                <li><a href="/article/{{ row.articleid }}">{{ loop.index }}. {{ row.headline| mytruncate(14) }}</a></li>
             {% endfor %}
 
         </ul>

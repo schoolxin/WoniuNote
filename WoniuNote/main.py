@@ -49,7 +49,23 @@ def get_type():
         '8': '蜗牛杂谈',
     }
     return dict(article_type = type)
-
+# 自定义过滤器重构trunacate多滤器
+def mytruncate(s,length,end="....."):
+    # 中文定义为一个字符 英文定义为0.5个字符
+    # 遍历整个字符串 获取到每个字符的ASCII码,如果是在128以内(0-127) 则认为是英文，否则为中文
+    count = 0
+    new = ''
+    for c in s:
+        new += c  # 循环一次就把字符添加到new后面
+        if ord(c) <= 128:
+            count += 0.5
+        else:
+            count += 1
+        if count > length:
+            break
+    return new + end
+# 注册过滤器
+app.jinja_env.filters.update(mytruncate=mytruncate)
 
 if __name__ == '__main__':
     from controller.index import *
