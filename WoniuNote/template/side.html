@@ -10,28 +10,18 @@
 
     <div class="col-12 side">
         <div class="tip">最新文章</div>
-        <ul>
-            {% for row in last%}
-                <li><a href="/article/{{ row.articleid }}">{{ loop.index }}. {{ row.headline| mytruncate(14) }}</a></li>
-            {% endfor %}
-
-        </ul>
+        <ul id="last"></ul>
     </div>
 
     <div class="col-12 side">
         <div class="tip">特别推荐</div>
-        <ul>
-            {% for row in recommended %}
-                <li><a href="/article/{{ row.articleid }}">{{ loop.index }}. {{ row.headline| mytruncate(14) }}</a></li>
-            {% endfor %}
-
-        </ul>
+        <ul id="recommended"></ul>
     </div>
 </div>
 <script type="text/javascript">
     function doSearch(e) {
         {#alert(e.keyCode)#}
-        if (e != null && e.keyCode  != 13) {
+        if (e != null && e.keyCode != 13) {
             return false
         }
 
@@ -44,5 +34,27 @@
         }
         location.href = '/search/1-' + keyword
     }
+
+    $(document).ready(function () {
+        // 发送Ajax请求去访问recommend 获取json数据
+        $.get('/recommend', function (data) {
+            var lastData = data[0];
+            var recommendedData = data[1];
+            for (var i in lastData) {
+                var articleid = lastData[i]['articleid'];
+                var headline = lastData[i]['headline'];
+                var id = parseInt(i) + 1;
+                // 通过元素的append方法为其添加内容，为<ul>添加<li>列表项
+                $("#last").append('<li><a href="/article/' + articleid + '">' + id + '.&nbsp;&nbsp;' + headline + '</a></li>');
+            }
+            for (var i in recommendedData) {
+                var articleid = recommendedData[i]['articleid'];
+                var headline = recommendedData[i]['headline'];
+                var id = parseInt(i) + 1;
+                // 通过元素的append方法为其添加内容，为<ul>添加<li>列表项
+                $("#recommended").append('<li><a href="/article/' + articleid + '">' + id + '.&nbsp;&nbsp;' + headline + '</a></li>');
+            }
+        })
+    })
 
 </script>
