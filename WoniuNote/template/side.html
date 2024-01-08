@@ -19,6 +19,34 @@
     </div>
 </div>
 <script type="text/javascript">
+    function truncate(headline,length)
+    {
+        for(let i=0;i<headline.length;i++)
+        {
+            {#console.log(headline[i])#}
+            console.log(headline[i].charCodeAt())
+        }
+        var count = 0
+        var news = ''
+        for (var i in headline)
+        {
+            news +=headline.charAt(i)
+            var code = headline.charCodeAt(i)
+            if (code<=128)
+            {
+                count+=0.5
+            }else
+            {
+                count+=1
+            }
+            if(count>length)
+            {
+                break
+            }
+        }
+        return news+"...."
+    }
+
     function doSearch(e) {
         {#alert(e.keyCode)#}
         if (e != null && e.keyCode != 13) {
@@ -45,14 +73,14 @@
                 var headline = lastData[i]['headline'];
                 var id = parseInt(i) + 1;
                 // 通过元素的append方法为其添加内容，为<ul>添加<li>列表项
-                $("#last").append('<li><a href="/article/' + articleid + '">' + id + '.&nbsp;&nbsp;' + headline + '</a></li>');
+                $("#last").append('<li><a href="/article/' + articleid + '">' + id + '.&nbsp;&nbsp;' + truncate(headline,14) + '...</a></li>');
             }
             for (var i in recommendedData) {
                 var articleid = recommendedData[i]['articleid'];
                 var headline = recommendedData[i]['headline'];
                 var id = parseInt(i) + 1;
                 // 通过元素的append方法为其添加内容，为<ul>添加<li>列表项
-                $("#recommended").append('<li><a href="/article/' + articleid + '">' + id + '.&nbsp;&nbsp;' + headline + '</a></li>');
+                $("#recommended").append('<li><a href="/article/' + articleid + '">' + id + '.&nbsp;&nbsp;' + truncate(headline,14) + '...</a></li>');
             }
         })
     })
