@@ -69,6 +69,9 @@ app.jinja_env.filters.update(mytruncate=mytruncate)
 
 if __name__ == '__main__':
     from controller.index import *
+    from controller.user import *
+
 
     app.register_blueprint(index)
+    app.register_blueprint(user)
     app.run(debug=True)

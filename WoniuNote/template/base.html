@@ -11,6 +11,7 @@
     <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script type="text/javascript" src="/js/bootbox.js"></script>
+    <script type="text/javascript" src="/js/woniunote.js"></script>
 </head>
 <body>
 <!-- 首页顶部Logo和Slogan区域 -->
@@ -64,9 +65,23 @@
                 </div>
                 <!-- ml-auto类属性设置菜单项靠右对齐 -->
                 <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#mymodal">登录</a>
-                    <a class="nav-item nav-link" href="#">注销</a>
-                    <a class="nav-item nav-link" href="#">用户中心</a>
+                   {#{% if session.get('islogin') != 'true' %}
+                        <a class="nav-item nav-link" href="#" onclick="showLogin()">登录</a>
+                       <!-- <a class="nav-item nav-link" href="#" onclick="showReg()">注册</a>
+                        -->
+                    {% endif %} #}
+                    {#  注释掉模板页面的下述代码 #}
+                        {% if session.get('islogin') == 'true' %}
+                            <a class="nav-item nav-link" href="/ucenter">欢迎你：{{session.get('nickname')}}</a>
+                            &nbsp;&nbsp;&nbsp;
+                            <a class="nav-item nav-link" href="/ucenter">用户中心</a>&nbsp;&nbsp;&nbsp;
+                            <a class="nav-item nav-link" href="/logout">注销</a>
+                        {% else %}
+                             <a class="nav-item nav-link" href="#" onclick="showLogin()">登录</a>
+                             <a class="nav-item nav-link" href="#" onclick="showReg()">注册</a>
+                        {% endif %}
+
+
                 </div>
             </div>
         </nav>
@@ -174,13 +189,13 @@
         <div class="form-group row">
             <label for="regmcode" class="col-4">&nbsp;&nbsp;邮箱验证码：</label>
             <input type="text" id="regmcode" class="form-control col-4" placeholder="请输入邮箱验证码"/>
-            <button type="button" class="btn btn-primary col-3">发送邮件</button>
+            <button type="button" class="btn btn-primary col-3" onclick="doSendMail(this)">发送邮件</button>
         </div>
     </div>
     <div class="modal-footer">
         <span>注册时请使用邮箱地址，便于找回密码。&nbsp;&nbsp;</span>
         <button type="button" class="btn btn-dark" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary">注册</button>
+        <button type="button" class="btn btn-primary" onclick="doReg(this)">注册</button>
     </div>
     </div>
     </div>
